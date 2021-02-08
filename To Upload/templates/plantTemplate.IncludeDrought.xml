@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--?xml-stylesheet type="text/xsl" href="tree-view2.xsl"? -->
+<!--
+Copyright © 2016, The Pennsylvania State University
+All rights reserved.
+
+Copyright © 2016 Forschungszentrum Jülich GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted under the GNU General Public License v3 and provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+Disclaimer
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html
+
+ -->
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+<!--PlantTemplate-->
+	<SimulaDirective path="/soil">
+		<!--  SimulaExternal name="Simunek" unit="noUnit" function="Simunek" /-->
+		<SimulaExternal
+			name="Swms3d"
+			unit="noUnit"
+			function="Swms3d"
+			minTimeStep="0.0001"
+			preferedTimeStep="0.001"
+			maxTimeStep="0.2" />
+		<!--SimulaVariable name="potentialTranspiration" unit="cm3" function="sumOverPlantsShootRates" />
+		<SimulaVariable name="actualTranspiration" unit="cm3" function="sumOverPlantsShootRates" /-->
+		<SimulaBase name="water">
+			<SimulaTable
+				name_column1="time"
+				unit_column1="day"
+				name_column2="totalWaterInColumn"
+				unit_column2="cm3"
+				function="getValuesFromSWMS" />
+			<SimulaTable
+				name_column1="time"
+				unit_column1="day"
+				name_column2="totalWaterChangeInColumn"
+				unit_column2="cm3"
+				function="getValuesFromSWMS" />
+			<SimulaTable
+				name_column1="time"
+				unit_column1="day"
+				name_column2="topBoundaryFluxRate"
+				unit_column2="cm3/day"
+				function="getValuesFromSWMS" />
+			<SimulaTable
+				name_column1="time"
+				unit_column1="day"
+				name_column2="bottomBoundaryFluxRate"
+				unit_column2="cm3/day"
+				function="getValuesFromSWMS" />
+			<SimulaVariable
+				name="topBoundaryFlux"
+				unit="cm3"
+				function="usePath">
+				0 0
+				<SimulaConstant
+					name="path"
+					type="string">topBoundaryFluxRate
+				</SimulaConstant>
+			</SimulaVariable>
+			<SimulaVariable
+				name="bottomBoundaryFlux"
+				unit="cm3"
+				function="usePath">
+				0 0
+				<SimulaConstant
+					name="path"
+					type="string">bottomBoundaryFluxRate
+				</SimulaConstant>
+			</SimulaVariable>
+			<SimulaTable
+				name_column1="time"
+				unit_column1="day"
+				name_column2="totalSinkRate"
+				unit_column2="cm3/day"
+				function="getValuesFromSWMS" />
+			<SimulaVariable
+				name="totalSink"
+				unit="cm3"
+				function="usePath">
+				0 0
+				<SimulaConstant
+					name="path"
+					type="string">totalSinkRate
+				</SimulaConstant>
+			</SimulaVariable>
+			<SimulaDerivative
+				name="massBalanceError"
+				unit="cm3"
+				function="waterMassBalanceTest" />
+		</SimulaBase>
+	</SimulaDirective>
+	<SimulaDirective path="plants">
+		<SimulaDerivative
+			name="rootWaterUptake"
+			function="sumOverAllPlants"
+			unit="cm3" />
+	</SimulaDirective>
+	<SimulaDirective path="/plantTemplate">
+		<SimulaVariable
+			name="rootWaterUptake"
+			unit="cm3"
+			function="plantTotalRatesRootFraction" />
+		<SimulaVariable
+			name="rootWaterUptakeCheck"
+			unit="cm3"
+			function="waterUptakeDoussanModel" />
+		<SimulaTable
+			name_column1="time"
+			name_column2="waterPotentialAtTheCollar"
+			unit_column1="day"
+			unit_column2="hPa"
+			function="getValuesFromPlantWaterUptake"> -1 0
+		</SimulaTable>
+		<SimulaDerivative
+			name="rootSystemHydraulicConductivity1"
+			unit="cm3/day/g/hPa"
+			function="hydraulicConductivityRootSystem" />
+		<SimulaDerivative
+			name="rootSystemHydraulicConductivity2"
+			unit="cm3/day/cm2/hPa"
+			function="hydraulicConductivityRootSystem" />
+		<SimulaDerivative
+			name="rootSystemHydraulicConductivity3"
+			unit="cm3/day/cm3/hPa"
+			function="hydraulicConductivityRootSystem" />
+	</SimulaDirective>	
+
+<!--ShootTemplate-->
+	<SimulaDirective path="/shootTemplate">
+		<SimulaVariable
+			name="potentialTranspiration"
+			unit="cm3"
+			function="potentialTranspirationCrop" />
+	</SimulaDirective>
+
+<!--HypocotylTemplate-->
+	<SimulaDirective path="/hypocotylTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaConstant
+				name="rootSegmentWaterUptake"
+				unit="cm3">0</SimulaConstant>
+			<SimulaTable
+				name_column1="time"
+				name_column2="hydraulicHeadAtRootSurface"
+				unit_column1="day"
+				unit_column2="cm"
+				function="getValuesFromSWMS" />
+			<SimulaTable
+				name_column1="time"
+				name_column2="volumetricWaterContentAtTheRootSurface"
+				unit_column1="day"
+				unit_column2="cm3/cm3"
+				function="getValuesFromSWMS" />
+		</SimulaDirective>
+		<SimulaVariable
+			name="rootWaterUptake"
+			unit="cm3"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemWaterUptake"
+			unit="cm3"
+			function="rootSystemTotalRates" />
+	</SimulaDirective>
+
+<!--Sibling root template-->
+	<SimulaDirective path="/siblingRootTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaConstant
+				name="rootSegmentWaterUptake"
+				unit="cm3">0</SimulaConstant>
+			<SimulaConstant
+				name="rootSegmentPotentialWaterUptake"
+				unit="cm3">0</SimulaConstant>
+			<SimulaTable
+				name_column1="time"
+				name_column2="hydraulicHeadAtRootSurface"
+				unit_column1="day"
+				unit_column2="cm"
+				function="getValuesFromSWMS" />
+			<SimulaTable
+				name_column1="time"
+				name_column2="volumetricWaterContentAtTheRootSurface"
+				unit_column1="day"
+				unit_column2="cm3/cm3"
+				function="getValuesFromSWMS" />
+		</SimulaDirective>
+		<SimulaVariable
+			name="rootWaterUptake"
+			unit="cm3"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemWaterUptake"
+			unit="cm3"
+			function="rootSystemTotalRates" />
+	</SimulaDirective>
+
+<!--DataPointTemplate-->
+	<SimulaDirective path="/dataPointTemplate">
+		<!-- SimulaVariable name="rootWaterUptake" unit="cm3/cm" function="scaledWaterUptake" /-->
+		<SimulaVariable
+			name="rootSegmentWaterUptake"
+			unit="cm3"
+			function="useDerivative" />
+		<SimulaTable
+			name_column1="time"
+			name_column2="rootSegmentWaterUptakeRate"
+			unit_column1="day"
+			unit_column2="cm3/day"
+			function="getValuesFromPlantWaterUptake"> -100000 0
+		</SimulaTable>
+		<SimulaTable
+			name_column1="time"
+			name_column2="hydraulicHeadAtRootSurface"
+			unit_column1="day"
+			unit_column2="cm"
+			function="getValuesFromSWMS" />
+		 <!-- 0 -400 1 -700 2 -300 3 -700 4 -300 5 -600 7 -1000 8 -100  50 -1000 -->
+<!--		    0 -100 100 -100  
+		</SimulaTable-->
+		<SimulaTable
+			name_column1="time"
+			name_column2="xylemWaterPotential"
+			unit_column1="day"
+			unit_column2="cm"
+			function="getValuesFromPlantWaterUptake"> -100000 0
+		</SimulaTable>
+		<SimulaTable
+			name_column1="time"
+			name_column2="volumetricWaterContentAtTheRootSurface"
+			unit_column1="day"
+			unit_column2="cm3/cm3"
+			function="getValuesFromSWMS" />
+<!-- 		    0 -100 100 -100  
+		</SimulaTable-->
+		<SimulaLink
+			name="radialHydraulicConductivity"
+			unit="cm/day/hPa" />
+		<SimulaLink
+			name="lateralHydraulicConductivity"
+			unit="cm4/day/hPa" />
+		<SimulaDerivative
+			name="rootSegmentLateralHydraulicConductivity"
+			unit="cm3/day/hPa"
+			function="hydraulicConductivity" />
+		<SimulaDerivative
+			name="rootSegmentRadialHydraulicConductivity"
+			unit="cm3/day/hPa"
+			function="hydraulicConductivity" />
+		<!-- SimulaLink name="lengthRootTipWithoutXylemVessels" unit="cm" /-->
+	</SimulaDirective>
+</SimulationModelIncludeFile>

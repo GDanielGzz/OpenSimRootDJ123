@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+SimRoot inclusion file
+author: Jouke
+-->
+
+<SimulationModelIncludeFile>
+	<SimulaDirective path="/simulationControls">
+		<SimulaBase name="etiolation">
+			<SimulaConstant name="reduceSecondaryGrowth" type="bool"> true </SimulaConstant>
+		</SimulaBase>
+	</SimulaDirective>
+</SimulationModelIncludeFile>
+

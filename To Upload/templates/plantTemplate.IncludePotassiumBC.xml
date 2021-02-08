@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--?xml-stylesheet type="text/xsl" href="tree-view2.xsl"? -->
+<!-- Copyright © 2016, The Pennsylvania State University All rights reserved. 
+	Copyright © 2016 Forschungszentrum Jülich GmbH All rights reserved. Redistribution 
+	and use in source and binary forms, with or without modification, are permitted 
+	under the GNU General Public License v3 and provided that the following conditions 
+	are met: 1. Redistributions of source code must retain the above copyright 
+	notice, this list of conditions and the following disclaimer. 2. Redistributions 
+	in binary form must reproduce the above copyright notice, this list of conditions 
+	and the following disclaimer in the documentation and/or other materials 
+	provided with the distribution. 3. Neither the name of the copyright holder 
+	nor the names of its contributors may be used to endorse or promote products 
+	derived from this software without specific prior written permission. Disclaimer 
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+	AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+	ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE 
+	LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL 
+	DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR 
+	SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER 
+	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+	OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE 
+	USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+	You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file 
+	in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html -->
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+	<!--PlantTemplate -->
+	<SimulaDirective path="/plantTemplate">
+		<SimulaBase name="potassium">
+			<SimulaDerivative name="plantOptimalNutrientContent"
+				unit="uMol" function="plantTotal" />
+			<SimulaDerivative name="plantMinimalNutrientContent"
+				unit="uMol" function="plantTotal" />
+			<SimulaVariable name="plantNutrientUptake" unit="uMol"
+				function="plantTotal" />
+			<!--SimulaDerivative name="nutrientStressFactor" unit="100%" function="nutrientStressFactor" 
+				/ -->
+			<SimulaVariable name="nutrientStressFactor" unit="100%"
+				function="nutrientStressFactor.V2" />
+		</SimulaBase>
+	</SimulaDirective>
+
+	<!--ShootTemplate -->
+	<SimulaDirective path="/shootTemplate">
+		<SimulaBase name="potassium">
+			<SimulaLink name="leafOptimalNutrientConcentration" unit="uMol/g" />
+			<SimulaDerivative name="leafOptimalNutrientContent"
+				unit="uMol" function="leafOptimalNutrientContent" />
+			<SimulaLink name="leafMinimalNutrientConcentration" unit="uMol/g" />
+			<SimulaDerivative name="leafMinimalNutrientContent"
+				unit="uMol" function="leafMinimalNutrientContent" />
+			<SimulaConstant name="leafNutrientUptake" unit="uMol">0
+			</SimulaConstant>
+			<SimulaLink name="stemOptimalNutrientConcentration" unit="uMol/g" />
+			<SimulaDerivative name="stemOptimalNutrientContent"
+				unit="uMol" function="stemOptimalNutrientContent" />
+			<SimulaLink name="stemMinimalNutrientConcentration" unit="uMol/g" />
+			<SimulaDerivative name="stemMinimalNutrientContent"
+				unit="uMol" function="stemMinimalNutrientContent" />
+			<SimulaConstant name="stemNutrientUptake" unit="uMol">0
+			</SimulaConstant>
+		</SimulaBase>
+	</SimulaDirective>
+
+	<!--HypocotylTemplate -->
+	<SimulaDirective path="/hypocotylTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaBase name="potassium">
+				<!--nutrientFluxDensity from the growthpoint should be always zero -->
+				<SimulaConstant name="nutrientFluxDensity" unit="uMol/cm"> 0
+				</SimulaConstant>
+				<SimulaConstant name="rootSegmentNutrientUptake"
+					unit="uMol"> 0</SimulaConstant>
+				<SimulaLink name="optimalNutrientConcentration" unit="uMol/g" />
+				<SimulaLink name="minimalNutrientConcentration" unit="uMol/g" />
+				<SimulaConstant name="rootSegmentOptimalNutrientContent"
+					unit="uMol">0</SimulaConstant>
+				<SimulaConstant name="rootSegmentMinimalNutrientContent"
+					unit="uMol">0</SimulaConstant>
+			</SimulaBase>
+		</SimulaDirective>
+		<SimulaBase name="potassium">
+			<SimulaDerivative name="rootOptimalNutrientContent"
+				unit="uMol" function="rootTotal.v2" />
+			<SimulaDerivative name="rootSystemOptimalNutrientContent"
+				unit="uMol" function="rootSystemTotal" />
+			<SimulaDerivative name="rootMinimalNutrientContent"
+				unit="uMol" function="rootTotal.v2" />
+			<SimulaDerivative name="rootSystemMinimalNutrientContent"
+				unit="uMol" function="rootSystemTotal" />
+			<SimulaVariable name="rootNutrientUptake" unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaVariable name="rootSystemNutrientUptake" unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaBase>
+	</SimulaDirective>
+
+	<!--Sibling root template -->
+	<SimulaDirective path="/siblingRootTemplate">
+		<SimulaDirective path="growthpoint">
+			<!--nutrientFluxDensity from the growthpoint should be always zero -->
+			<SimulaBase name="potassium">
+				<SimulaConstant name="nutrientFluxDensity" unit="uMol/cm"> 0
+				</SimulaConstant>
+				<SimulaConstant name="rootSegmentNutrientUptake"
+					unit="uMol"> 0</SimulaConstant>
+				<SimulaLink name="optimalNutrientConcentration" unit="uMol/g" />
+				<SimulaConstant name="rootSegmentOptimalNutrientContent"
+					unit="uMol">0</SimulaConstant>
+				<SimulaLink name="minimalNutrientConcentration" unit="uMol/g" />
+				<SimulaConstant name="rootSegmentMinimalNutrientContent"
+					unit="uMol">0</SimulaConstant>
+			</SimulaBase>
+		</SimulaDirective>
+		<SimulaBase name="potassium">
+			<SimulaDerivative name="rootOptimalNutrientContent"
+				unit="uMol" function="rootTotal.v2" />
+			<SimulaDerivative name="rootSystemOptimalNutrientContent"
+				unit="uMol" function="rootSystemTotal" />
+			<SimulaDerivative name="rootMinimalNutrientContent"
+				unit="uMol" function="rootTotal.v2" />
+			<SimulaDerivative name="rootSystemMinimalNutrientContent"
+				unit="uMol" function="rootSystemTotal" />
+			<SimulaVariable name="rootNutrientUptake" unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaVariable name="rootSystemNutrientUptake" unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaBase>
+	</SimulaDirective>
+
+	<!--DataPointTemplate -->
+	<SimulaDirective path="/dataPointTemplate">
+		<SimulaBase name="potassium">
+			<SimulaVariable name="rootSegmentNutrientUptake" unit="uMol"
+				preferedTimeStep="0.005" minTimeStep="0.0001" maxTimeStep="0.2"
+				integrationFunction="BackwardEuler" function="barber_cushman_1981_nutrient_uptake" />
+			<!--SimulaDerivative name="radiusDepletionZoneSimRoot4" unit="cm" function="radiusDepletionZoneSimRoot4" 
+				/ -->
+			<SimulaTable name_column1="time" name_column2="radiusDepletionZone"
+				unit_column1="day" unit_column2="cm" function="radiusDepletionZoneBarberCushman"> 0 0</SimulaTable>
+			<SimulaLink name="optimalNutrientConcentration" unit="uMol/g" />
+			<SimulaLink name="minimalNutrientConcentration" unit="uMol/g" />
+			<SimulaDerivative name="rootSegmentOptimalNutrientContent"
+				unit="uMol" function="rootSegmentOptimalNutrientContent" />
+			<SimulaDerivative name="rootSegmentMinimalNutrientContent"
+				unit="uMol" function="rootSegmentMinimalNutrientContent" />
+		</SimulaBase>
+	</SimulaDirective>
+</SimulationModelIncludeFile>

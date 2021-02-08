@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--?xml-stylesheet type="text/xsl" href="tree-view2.xsl"? -->
+<!--
+Copyright © 2016, The Pennsylvania State University
+All rights reserved.
+
+Copyright © 2016 Forschungszentrum Jülich GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted under the GNU General Public License v3 and provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+Disclaimer
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html
+
+ -->
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+	<SimulaDirective path="/plants">
+		<SimulaDerivative
+			name="meanLeafAreaIndex"
+			function="meanLeafAreaIndex"
+			unit="cm2/cm2" />
+		<SimulaDerivative
+			name="leafArea"
+			function="sumOverAllPlantShoots"
+			unit="cm2" />
+		<SimulaDerivative
+			name="meanExtinctionCoefficient"
+			function="meanOverAllPlantShoots"
+			unit="noUnit" />
+		<SimulaDerivative
+			name="plantArea"
+			function="sumOverAllPlantShoots"
+			unit="cm2">
+			<SimulaConstant
+				name="name"
+				type="string"> areaPerPlant</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="stomatalResistance"
+			unit="s/m"
+			function="stomatalResistance" />
+	</SimulaDirective>
+	<SimulaDirective path="/atmosphere">
+		<SimulaDerivative
+			name="airPressure"
+			unit="Pa"
+			function="airPressure" />
+		<SimulaDerivative
+			name="airDensity"
+			unit="kg/m3"
+			function="airDensity" />
+		<SimulaDerivative
+			name="specificHeatCapacityOfAir"
+			unit="J/kg/degreesC"
+			function="specificHeatCapacityOfAir" />
+		<SimulaDerivative
+			name="aerodynamicResistance"
+			unit="s/m"
+			function="aerodynamicResistance" />
+		<SimulaDerivative
+			name="actualVaporPressure"
+			unit="hPa"
+			function="e_a" />
+		<SimulaDerivative
+			name="saturatedVaporPressure"
+			unit="hPa"
+			function="e_s" />
+		<SimulaDerivative
+			name="slopeVaporPressure"
+			unit="hPa/degreesC"
+			function="delta_e_s" />
+	<!-- if net radiation computed from latitude etc, otherwise use parameter section -->	
+	<!-- SimulaDerivative name="netRadiation" unit="MJ/m2/day"
+		function="Radiation" />
+	<SimulaDerivative name="netRadiationSoil" unit="MJ/m2/day"
+		function="Radiation" /-->
+	
+	<!-- the evapo transpiration split up -->
+		<SimulaVariable
+			name="potentialTranspiration"
+			unit="cm"
+			function="monteithEQ">
+			0 0
+			<SimulaConstant
+				name="mode"
+				type="string"> <!-- evaporation, transpiration or evapotranspiration -->
+				transpiration
+			</SimulaConstant>
+		</SimulaVariable>
+	<!-- todo evaporation and transpiration are in different units -->
+		<SimulaDerivative
+			name="potentialEvaporation"
+			unit="cm/day"
+			function="monteithEQ">
+			<SimulaConstant
+				name="mode"
+				type="string"> <!-- evaporation, transpiration or evapotranspiration -->
+				evaporation
+			</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="interception"
+			unit="cm/day"
+			function="Interception" />
+
+	<!-- SimulaDerivative name="priestleyTaylor" unit="cm/day" function="PriestleyTaylor" 
+		/ -->
+	<!-- SimulaDerivative name="stanghellini" unit="cm/day" function="Stanghellini" 
+		/ -->
+	<!-- SimulaDerivative name="grassStandardReference" unit="cm/day" function="Grass_reference_evapotranspiration" 
+		/ -->
+	<!-- SimulaDerivative name="tallStandardReference" unit="cm/day" function="Tall_reference_Crop" 
+		/ -->
+	<!-- SimulaDerivative name="penmanEQ" unit="cm/day" function="penmanEQ" 
+		/ -->
+	<!-- SimulaDerivative name="monteithEQ" unit="cm/day" function="monteithEQ" 
+		/ -->
+	</SimulaDirective>
+</SimulationModelIncludeFile>
