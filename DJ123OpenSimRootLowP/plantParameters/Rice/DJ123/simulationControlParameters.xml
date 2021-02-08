@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright © 2016 Forschungszentrum Jülich GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted under the GNU General Public License v3 and provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+Disclaimer
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html
+
+ -->
+<?xml-stylesheet type="text/xsl" href="XML/treeview.xsl"?>
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../scripts/XML/SimulaXMLSchema.xsd">
+<!--Controls for the simulation-->
+	<SimulaBase name="simulationControls">
+	
+		<SimulaConstant type="integer" name="SimulaStochastic::numberOfSamples">
+		<!--note this should be set to 1 to have normal randomness, but will reduce random effects by repeated sampling the distribution and taking the average. 
+		So you larger number here will reduce the effect of randomness on the output, which in some cases is desirable, especially when comparing treatments.-->
+			1000
+		</SimulaConstant>
+		<SimulaBase name="integrationParameters">
+		<!--TODO current timestepping module for simulapoint does not control errors correctly - rootlength is not what is should be-->
+			<SimulaConstant name="defaultSpatialIntegrationLength"  unit="cm">0.2</SimulaConstant>
+		</SimulaBase>
+		<SimulaBase name="outputParameters">
+			<SimulaBase name="defaults">
+			<!-- optional section - if an export module section does not list end/start/interval times than you can specify a default here-->
+				<SimulaConstant name="startTime" type="time"> 0.	</SimulaConstant>
+				<SimulaConstant name="endTime" type="time"> 52.	</SimulaConstant>
+			<SimulaConstant name="timeInterval" type="time"> 1.	</SimulaConstant>
+			</SimulaBase>	
+			<!--what output plugins should be loaded and run-->
+			<SimulaBase name="probeAllObjects">
+				<SimulaConstant name="run" type="bool"> 0 <!--this does not result in any output, just tries to run the code for debugging purposes-->	</SimulaConstant>
+				<SimulaConstant name="timeInterval" type="time"> 1	</SimulaConstant>
+			</SimulaBase>	
+			<!-- The garbage collector reduces memory use, don't run to often, or it may slow down the model -->
+			<SimulaBase name="garbageCollection">
+				<SimulaConstant name="run" type="bool"> 0 	</SimulaConstant>
+				<SimulaConstant name="startTime" type="time"> 1	</SimulaConstant>
+				<SimulaConstant name="lackTime" type="time"> 0.4	</SimulaConstant>
+				<SimulaConstant name="timeInterval" type="time"> 0.2 	</SimulaConstant>
+			</SimulaBase>	
+			<SimulaBase name="modelDump">
+				<SimulaConstant name="run" type="bool"> 0 	</SimulaConstant>
+				<SimulaConstant name="startTime" type="time"> 0	</SimulaConstant>
+				<!--becareful not to dump a model that has run for a while, the output may be tenth of gigabytes long-->
+				<SimulaConstant name="endTime" type="time"> 1	</SimulaConstant>
+				<!--not implemented yet SimulaConstant name="copyStyleSheetsToOutputDir"> 1	</SimulaConstant-->
+			</SimulaBase>
+			<SimulaBase name="vtp">
+				<SimulaConstant name="run" type="bool"> 1.  </SimulaConstant>
+				<!--note that vtu is incorrect when there are no roots: make startTime later than planting time-->
+				<SimulaConstant name="timeInterval" type="time"> 1	</SimulaConstant>
+				<SimulaConstant name="includeShoots" type="bool"> 0 </SimulaConstant>
+				<!--note that currently if you include the shoot the point data will not be shown for the root-->
+				<SimulaConstant name="includeRoots" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includeVTUForDepletionZones" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includePointData" type="bool"> 1 </SimulaConstant>
+			</SimulaBase>	
+				<SimulaBase name="VTU">
+				<SimulaConstant name="run" type="bool"> 0  </SimulaConstant>
+				<!--note that vtu is incorrect when there are no roots: make startTime later than planting time-->
+				<SimulaConstant name="timeInterval" type="time"> 1	</SimulaConstant>
+				<SimulaConstant name="includeShoots" type="bool"> 0 </SimulaConstant>
+				<!--note that currently if you include the shoot the point data will not be shown for the root-->
+				<SimulaConstant name="includeRoots" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includeVTUForDepletionZones" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includePointData" type="bool"> 1 </SimulaConstant>
+			</SimulaBase>
+				
+			<SimulaBase name="wireframe.vtu">
+				<SimulaConstant name="run" type="bool"> 0  </SimulaConstant>
+				<!--note that vtu is incorrect when there are no roots: make startTime later than planting time-->
+				<SimulaConstant name="timeInterval" type="time"> 0.2	</SimulaConstant>
+				<SimulaConstant name="includeShoots" type="bool"> 0 </SimulaConstant>
+				<!--note that currently if you include the shoot the point data will not be shown for the root-->
+				<SimulaConstant name="includeRoots" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includeVTUForDepletionZones" type="bool"> 1 </SimulaConstant>
+				<SimulaConstant name="includePointData" type="bool"> 1 </SimulaConstant>
+			</SimulaBase>	
+			<SimulaBase name="tableOfRootNodes">
+				<SimulaConstant name="run" type="bool"> 0 </SimulaConstant>
+				<SimulaConstant name="timeInterval" type="time"> 8	</SimulaConstant>
+			</SimulaBase>	
+			<SimulaBase name="table">
+				<SimulaConstant name="run" type="bool"> 1. </SimulaConstant>
+				<SimulaConstant name="timeInterval" type="time"> .20	</SimulaConstant>
+				<SimulaConstant name="searchingDepth" type="integer">  5 		</SimulaConstant>
+				<SimulaConstant name="skipTheseVariables" type="string">
+					primaryRoot, hypocotyl, environment			
+				</SimulaConstant>
+			</SimulaBase>	
+<!--///@todo: include time controls so they don't have to be run of the commandline-->
+<!--///@todo: include wrl and mesh controls so we can choose what output we want and control color coding-->
+		</SimulaBase>	
+
+	</SimulaBase>
+	
+</SimulationModelIncludeFile>
+
+

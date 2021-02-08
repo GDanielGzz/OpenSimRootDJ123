@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+<!--PlantTemplate-->
+	<SimulaDirective path="/plantTemplate">
+		<SimulaDerivative name="plantDryWeight" unit="g" function="plantTotal" />
+		<SimulaDerivative name="shootDryWeight" unit="g" function="plantTotalShootFraction" />
+		<SimulaDerivative name="rootDryWeight" unit="g" function="plantTotalRootFraction" />
+		<SimulaDerivative name="carbonToDryWeightRatio" unit="100%" function="carbonToDryWeightRatio" />
+	</SimulaDirective>	
+
+<!--ShootTemplate-->
+	<SimulaDirective path="/shootTemplate">
+		<SimulaVariable name="leafArea" unit="cm2" function="potentialLeafArea" />
+		<SimulaDerivative name="leafAreaIndex" unit="cm2/cm2" function="leafAreaIndex" />
+		<SimulaVariable name="leafDryWeight" unit="g" function="leafDryWeight.v2" />
+		<SimulaVariable name="stemDryWeight" unit="g" function="stemDryWeight" />
+		<SimulaLink name="areaPerPlant" />
+	</SimulaDirective>
+
+<!--HypocotylTemplate-->
+	<SimulaDirective path="/hypocotylTemplate">
+		<SimulaDirective path="growthpoint">
+			<!--SimulaConstant name="rootSegmentSpecificWeight"  unit="g/cm3" > 0 </SimulaConstant-->
+			<SimulaConstant name="rootSegmentDryWeight"  unit="g" > 0 </SimulaConstant>
+		</SimulaDirective>
+		<SimulaDerivative name="rootDryWeight" unit="g" function="rootTotal" /><!--in CO2-->
+		<SimulaDerivative name="rootSystemDryWeight" unit="g" function="rootSystemTotal" /><!--in CO2-->
+	</SimulaDirective>
+
+<!--Sibling root template-->
+	<SimulaDirective path="/siblingRootTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaConstant name="rootSegmentSpecificWeight"  unit="g/cm3" > 0 </SimulaConstant>
+			<SimulaConstant name="rootSegmentDryWeight"  unit="g" > 0 </SimulaConstant>
+		</SimulaDirective>
+		<SimulaDerivative name="rootDryWeight" unit="g" function="rootTotal" /><!--in CO2-->
+		<SimulaDerivative name="rootSystemDryWeight" unit="g" function="rootSystemTotal" /><!--in CO2-->
+	</SimulaDirective>
+
+<!--DataPointTemplate-->
+	<SimulaDirective path="/dataPointTemplate">
+		<SimulaDerivative name="rootSegmentDryWeight" unit="g" function="rootSegmentDryWeight" />
+	</SimulaDirective>
+</SimulationModelIncludeFile>
+

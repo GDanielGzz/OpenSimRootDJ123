@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--?xml-stylesheet type="text/xsl" href="tree-view2.xsl"? -->
+<!--
+Copyright © 2016, The Pennsylvania State University
+All rights reserved.
+
+Copyright © 2016 Forschungszentrum Jülich GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted under the GNU General Public License v3 and provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+Disclaimer
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html
+
+ -->
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+	<SimulaDirective path="/soil">
+	<!--this will simple allow for a root length profile-->
+		<SimulaDerivative
+			name="RootLengthProfile_00-10"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> 0</SimulaConstant>
+			<SimulaConstant name="y2"> -10</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_10-20"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -10</SimulaConstant>
+			<SimulaConstant name="y2"> -20</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_20-30"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -20</SimulaConstant>
+			<SimulaConstant name="y2"> -30</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_30-40"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -30</SimulaConstant>
+			<SimulaConstant name="y2"> -40</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_40-50"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -40</SimulaConstant>
+			<SimulaConstant name="y2"> -50</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_50-60"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -50</SimulaConstant>
+			<SimulaConstant name="y2"> -60</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_60-70"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -60</SimulaConstant>
+			<SimulaConstant name="y2"> -70</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_70-80"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -70</SimulaConstant>
+			<SimulaConstant name="y2"> -80</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_80-90"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -80</SimulaConstant>
+			<SimulaConstant name="y2"> -90</SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative
+			name="RootLengthProfile_90+"
+			unit="cm"
+			function="rootLengthProfile">
+			<SimulaConstant name="y1"> -90</SimulaConstant>
+			<SimulaConstant name="y2"> -1000</SimulaConstant>
+		</SimulaDerivative>
+		
+		<!--  SimulaDerivative name="rootLengthDensityInMiddleCore_04" unit="cm/cm3" function="rootLengthDensity">
+			<SimulaConstant name="location" type="coordinate"> 0 -4 4.33 </SimulaConstant>
+			<SimulaConstant name="radius" unit="cm"> 3 </SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative name="rootLengthDensityInMiddleCore_12" unit="cm/cm3" function="rootLengthDensity">
+			<SimulaConstant name="location" type="coordinate"> 0 -12 4.33 </SimulaConstant>
+			<SimulaConstant name="radius" unit="cm"> 3 </SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative name="rootLengthDensityInMiddleCore_20" unit="cm/cm3" function="rootLengthDensity">
+			<SimulaConstant name="location" type="coordinate"> 0 -20 4.33 </SimulaConstant>
+			<SimulaConstant name="radius" unit="cm"> 3 </SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative name="rootLengthDensityInMiddleCore_28" unit="cm/cm3" function="rootLengthDensity">
+			<SimulaConstant name="location" type="coordinate"> 0 -28 4.33 </SimulaConstant>
+			<SimulaConstant name="radius" unit="cm"> 3 </SimulaConstant>
+		</SimulaDerivative>
+		<SimulaDerivative name="rootLengthDensityInMiddleCore_36" unit="cm/cm3" function="rootLengthDensity">
+			<SimulaConstant name="location" type="coordinate"> 0 -36 4.33 </SimulaConstant>
+			<SimulaConstant name="radius" unit="cm"> 3 </SimulaConstant>
+		</SimulaDerivative-->
+		<SimulaBase name="inTheRowCoring">
+			<SimulaDerivative
+				name="00.000,00.000"
+				unit="cm"
+				function="virtualCoring">
+				<SimulaConstant
+					name="center"
+					type="coordinate"> 0 0 0</SimulaConstant>
+				<SimulaConstant
+					name="radius"
+					unit="cm"> 4.5</SimulaConstant>
+				<SimulaConstant
+					name="coringDepth"
+					unit="cm"> -200</SimulaConstant>
+				<SimulaConstant
+					name="verticalSpacing"
+					unit="cm"> 10</SimulaConstant>
+			</SimulaDerivative>
+		</SimulaBase>
+		<SimulaBase name="betweenTheRowCoring">
+			<SimulaDerivative
+				name="05.500,00.000"
+				unit="cm"
+				function="virtualCoring">
+				<SimulaConstant
+					name="center"
+					type="coordinate"> 5.5 0 0</SimulaConstant>
+				<SimulaConstant
+					name="radius"
+					unit="cm"> 4.5</SimulaConstant>
+				<SimulaConstant
+					name="coringDepth"
+					unit="cm"> -200</SimulaConstant>
+				<SimulaConstant
+					name="verticalSpacing"
+					unit="cm"> 10</SimulaConstant>
+			</SimulaDerivative>
+		</SimulaBase>
+	</SimulaDirective>
+</SimulationModelIncludeFile>

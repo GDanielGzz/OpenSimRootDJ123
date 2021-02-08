@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--?xml-stylesheet type="text/xsl" href="tree-view2.xsl"? -->
+<!--
+Copyright © 2016, The Pennsylvania State University
+All rights reserved.
+
+Copyright © 2016 Forschungszentrum Jülich GmbH
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted under the GNU General Public License v3 and provided that the following conditions are met:
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+
+Disclaimer
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in license.txt but can also be found at http://www.gnu.org/licenses/gpl-3.0.en.html
+
+ -->
+<SimulationModelIncludeFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../scripts/XML/SimulaXMLSchema.xsd">
+	<SimulaDirective path="/plantTemplate">
+		<SimulaVariable
+			name="rootRespirationSteel"
+			unit="g"
+			function="plantTotalRatesRootFraction" />
+		<SimulaVariable
+			name="rootRespirationCortex"
+			unit="g"
+			function="plantTotalRatesRootFraction" />
+		<SimulaVariable
+			name="rootRespirationCortexNoRCS"
+			unit="g"
+			function="plantTotalRatesRootFraction" />
+		<SimulaDerivative
+			name="rootVolumeSteel"
+			unit="cm3"
+			function="plantTotalRootFraction" />
+		<SimulaDerivative
+			name="rootVolumeNoRCS"
+			unit="cm3"
+			function="plantTotalRootFraction" />
+		<SimulaDerivative
+			name="rootDryWeightNoRCS"
+			unit="g"
+			function="plantTotalRootFraction" />
+		<SimulaDerivative
+			name="rootDryWeightSteel"
+			unit="g"
+			function="plantTotalRootFraction" />
+		<SimulaDerivative
+			name="rootDryWeightCortexNoRCS"
+			unit="g"
+			function="plantTotalRootFraction" />
+		<SimulaDerivative
+			name="rootDryWeightCortex"
+			unit="g"
+			function="plantTotalRootFraction" />
+		<SimulaDirective
+			path="nitrate"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="plantTotal" />
+			<SimulaDerivative
+				name="rootOptimalNutrientContent"
+				unit="uMol"
+				function="plantTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="phosphorus"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="plantTotal" />
+			<SimulaDerivative
+				name="rootOptimalNutrientContent"
+				unit="uMol"
+				function="plantTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="potassium"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="plantTotal" />
+			<SimulaDerivative
+				name="rootOptimalNutrientContent"
+				unit="uMol"
+				function="plantTotal" />
+		</SimulaDirective>
+	</SimulaDirective>
+
+	<!--DataPointTemplate -->
+	<SimulaDirective path="/hypocotylTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaLink
+				name="rootCorticalSenescenceStage"
+				unit="100%" />
+			<SimulaConstant
+				name="rootDiameterSteel"
+				unit="cm" />
+			<SimulaConstant
+				name="rootSegmentVolumeSteel"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeCortex"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeCortexNoRCS"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeNoRCS"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentDryWeightSteel"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightCortex"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightCortexNoRCS"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightNoRCS"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentRespirationSteel"
+				unit="g/day" />
+			<SimulaConstant
+				name="rootSegmentRespirationCortex"
+				unit="g/day" />
+			<SimulaConstant
+				name="rootSegmentRespirationCortexNoRCS"
+				unit="g/day" />
+			<SimulaDirective
+				path="nitrate"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+			<SimulaDirective
+				path="potassium"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+			<SimulaDirective
+				path="phosphorus"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+		</SimulaDirective>
+		<SimulaVariable
+			name="rootRespirationSteel"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationSteel"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaVariable
+			name="rootRespirationCortex"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationCortex"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaVariable
+			name="rootRespirationCortexNoRCS"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationCortexNoRCS"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaDerivative
+			name="rootVolumeSteel"
+			unit="cm3"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemVolumeSteel"
+			unit="cm3"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootVolumeNoRCS"
+			unit="cm3"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemVolumeNoRCS"
+			unit="cm3"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightNoRCS"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightNoRCS"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightSteel"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightSteel"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightCortex"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightCortex"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightCortexNoRCS"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightCortexNoRCS"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDirective
+			path="nitrate"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="potassium"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="phosphorus"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+	</SimulaDirective>
+
+	<!--Sibling root template -->
+	<SimulaDirective path="/siblingRootTemplate">
+		<SimulaDirective path="growthpoint">
+			<SimulaLink
+				name="rootCorticalSenescenceStage"
+				unit="100%" />
+			<SimulaConstant
+				name="rootDiameterSteel"
+				unit="cm" />
+			<SimulaConstant
+				name="rootSegmentVolumeSteel"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeCortex"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeCortexNoRCS"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentVolumeNoRCS"
+				unit="cm3" />
+			<SimulaConstant
+				name="rootSegmentDryWeightSteel"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightCortex"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightCortexNoRCS"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentDryWeightNoRCS"
+				unit="g" />
+			<SimulaConstant
+				name="rootSegmentRespirationSteel"
+				unit="g/day" />
+			<SimulaConstant
+				name="rootSegmentRespirationCortex"
+				unit="g/day" />
+			<SimulaConstant
+				name="rootSegmentRespirationCortexNoRCS"
+				unit="g/day" />
+			<SimulaDirective
+				path="nitrate"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+			<SimulaDirective
+				path="potassium"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+			<SimulaDirective
+				path="phosphorus"
+				optional="whenExisting">
+				<SimulaConstant
+					name="rootSegmentOptimalNutrientContentNoRCS"
+					unit="uMol" />
+			</SimulaDirective>
+		</SimulaDirective>
+		<SimulaVariable
+			name="rootRespirationSteel"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationSteel"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaVariable
+			name="rootRespirationCortex"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationCortex"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaVariable
+			name="rootRespirationCortexNoRCS"
+			unit="g"
+			function="rootTotalRates" />
+		<SimulaVariable
+			name="rootSystemRespirationCortexNoRCS"
+			unit="g"
+			function="rootSystemTotalRates" />
+		<SimulaDerivative
+			name="rootVolumeSteel"
+			unit="cm3"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemVolumeSteel"
+			unit="cm3"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootVolumeNoRCS"
+			unit="cm3"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemVolumeNoRCS"
+			unit="cm3"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightNoRCS"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightNoRCS"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightSteel"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightSteel"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightCortex"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightCortex"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDerivative
+			name="rootDryWeightCortexNoRCS"
+			unit="g"
+			function="rootTotal.v2" />
+		<SimulaDerivative
+			name="rootSystemDryWeightCortexNoRCS"
+			unit="g"
+			function="rootSystemTotal" />
+		<SimulaDirective
+			path="nitrate"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="potassium"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="phosphorus"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootTotal.v2" />
+			<SimulaDerivative
+				name="rootSystemOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSystemTotal" />
+		</SimulaDirective>
+	</SimulaDirective>
+	<SimulaDirective path="/dataPointTemplate">
+		<SimulaLink
+			name="rootCorticalSenescenceStage"
+			unit="100%" />
+		<SimulaVariable
+			name="rootDiameterSteel"
+			unit="cm"
+			function="secondaryGrowth" />
+		<SimulaDerivative
+			name="rootDiameterCortex"
+			unit="cm"
+			function="rootDiameterCortex" />
+		<SimulaDerivative
+			name="rootDiameterCortexNoRCS"
+			unit="cm"
+			function="rootDiameterCortex" />
+		<SimulaDerivative
+			name="rootDiameter"
+			unit="cm"
+			function="sumSteelCortex"
+			replacesPreviousDeclaration="whenExisting" />
+		<SimulaDerivative
+			name="rootDiameterNoRCS"
+			unit="cm"
+			function="sumSteelCortex" />
+		<SimulaDerivative
+			name="rootSegmentVolumeSteel"
+			unit="cm3"
+			function="rootSegmentVolumeSteel" />
+		<SimulaDerivative
+			name="rootSegmentVolumeCortex"
+			unit="cm3"
+			function="rootSegmentVolumeCortex" />
+		<SimulaDerivative
+			name="rootSegmentVolumeCortexNoRCS"
+			unit="cm3"
+			function="rootSegmentVolumeCortex" />
+		<SimulaDerivative
+			name="rootSegmentVolumeNoRCS"
+			unit="cm3"
+			function="rootSegmentVolume" />
+		<SimulaDerivative
+			name="rootSegmentDryWeightSteel"
+			unit="g"
+			function="rootSegmentDryWeight" />
+		<SimulaDerivative
+			name="rootSegmentDryWeightCortex"
+			unit="g"
+			function="rootSegmentDryWeight" />
+		<SimulaDerivative
+			name="rootSegmentDryWeightCortexNoRCS"
+			unit="g"
+			function="rootSegmentDryWeight" />
+		<SimulaDerivative
+			name="rootSegmentDryWeightNoRCS"
+			unit="g"
+			function="rootSegmentDryWeight" />
+		<SimulaDerivative
+			name="rootSegmentRespirationSteel"
+			unit="g/day"
+			function="rootSegmentRespirationRate" />
+		<SimulaDerivative
+			name="rootSegmentRespirationCortex"
+			unit="g/day"
+			function="rootSegmentRespirationRate" />
+		<SimulaDerivative
+			name="rootSegmentRespirationCortexNoRCS"
+			unit="g/day"
+			function="rootSegmentRespirationRate" />
+		<SimulaDirective
+			path="nitrate"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootSegmentOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSegmentOptimalNutrientContent" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="potassium"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootSegmentOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSegmentOptimalNutrientContent" />
+		</SimulaDirective>
+		<SimulaDirective
+			path="phosphorus"
+			optional="whenExisting">
+			<SimulaDerivative
+				name="rootSegmentOptimalNutrientContentNoRCS"
+				unit="uMol"
+				function="rootSegmentOptimalNutrientContent" />
+		</SimulaDirective>
+	</SimulaDirective>
+</SimulationModelIncludeFile>
