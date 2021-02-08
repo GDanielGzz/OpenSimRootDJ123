@@ -1,5 +1,5 @@
 # OpenSimRootDJ123
-Work In Progress for DJ123 Rice Root Architectural Model
+DJ123 Rice Root Architectural Model for Low P soil P uptake simulation.
 
 
 Instructions:
