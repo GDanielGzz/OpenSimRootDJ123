@@ -27,7 +27,7 @@ You should have received the GNU GENERAL PUBLIC LICENSE v3 with this file in lic
 	<SimulaDirective path="defaults">
 		<SimulaTable name_column1="time since creation" unit_column1="day" name_column2="relativeRespiration"
 				unit_column2="g/g/day"
-			>  0 0.338 3 0.123 1000 0.123 </SimulaTable>
+			>  0  0.042  3  0.0141 1000  0.0141 </SimulaTable>
 		<SimulaTable name_column1="time since creation" unit_column1="day" name_column2="relativeRespirationCortex"
 				unit_column2="g/g/day"
 			> 0 0.07 3 0.0234 1000 0.0234</SimulaTable>
