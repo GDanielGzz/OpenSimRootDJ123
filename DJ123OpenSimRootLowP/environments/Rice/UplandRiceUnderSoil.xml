@@ -310,7 +310,7 @@
 			</SimulaConstant>
 			<SimulaConstant
 				name="plantType"
-				type="string"> RiceIR64
+				type="string"> DJ123
 			</SimulaConstant>
 			<SimulaConstant
 				name="plantingDepth"
