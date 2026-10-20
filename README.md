@@ -1,22 +1,50 @@
 # OpenSimRootDJ123
-DJ123 Rice Root Architectural Model for Low P soil P uptake simulation.
 
+> **Archived.** This parameterisation has been merged into the main
+> [OpenSimRoot](https://gitlab.com/rootmodels/OpenSimRoot) project maintained by
+> Johannes Postma and colleagues. Use the upstream repository for anything new.
+> This repository is kept only as a historical record of the original
+> 2021 upload and is no longer maintained.
 
-Instructions:
+DJ123 rice (*Oryza sativa* aus, cv. DJ123) root architectural model for
+simulating phosphorus uptake in low-P upland soil, built on the
+OpenSimRoot functional-structural plant model.
 
+## What is here
 
-1. Download Complete File named "DJ123OpenSimRootLowP".
+| Path | Contents |
+|---|---|
+| `DJ123OpenSimRootLowP/runRiceDJ123.xml` | Top-level simulation input |
+| `DJ123OpenSimRootLowP/plantParameters/Rice/DJ123/` | DJ123 plant parameters: growth rates, branching angles, root hairs, nutrient uptake (N, P, K), respiration, stress responses |
+| `DJ123OpenSimRootLowP/environments/Rice/UplandRiceUnderSoil.xml` | Low-P upland soil environment |
+| `DJ123OpenSimRootLowP/templates/` | Standard OpenSimRoot module templates as of 2021 |
+| `DJ123OpenSimRootLowP/tabled_output.xls` | Example output from a 2021 run |
 
-2. Run "OpenSimRoot.exe" located inside the Folder.
+The OpenSimRoot Windows executable that used to ship in this repository was
+removed. Get a current build, or compile one from source, from the
+[upstream repository](https://gitlab.com/rootmodels/OpenSimRoot).
 
-3. After the simulation is finished, or at any point during the simulation, opening tabled_output.xls will show all the numeric results given by the simulation so far.
+## Running it (historical)
 
-4. VTP files are created at a rate of one per simulated day; To view the full 3D from day 0 to the finish date, visualisationRoots.polylines.pvd should be run.
+1. Build or download OpenSimRoot from upstream.
+2. Run it with `DJ123OpenSimRootLowP/runRiceDJ123.xml` as the input file.
+3. Numeric results are written to `tabled_output` as the simulation runs.
+4. One VTP file is written per simulated day. Open
+   `visualisationRoots.polylines.pvd` in [ParaView](https://www.paraview.org/)
+   to view the 3D root system over time.
+5. Change the model by editing the XML files under `environments/` and
+   `plantParameters/`.
 
-5. These files can be opened in graphical viewers, such as Paraview.
+The parameter files target the 2021 version of OpenSimRoot and may need
+updating to run against current releases. The merged upstream version is
+the one to use.
 
-6. Modifications to the model parameters can be done by editing the corresponding .xml files included in both 'Environments' and 'PlantParameters'. 
+## References
 
-For more information about it, please consult the main OpenSimRoot page and repository, at https://rootmodels.gitlab.io/
-
- 
+- Postma JA, Kuppe C, Owen MR, *et al.* (2017). OpenSimRoot: widening the
+  scope and application of root architectural models. *New Phytologist*
+  215(3):1274–1286. [doi:10.1111/nph.14641](https://doi.org/10.1111/nph.14641)
+- Schäfer ED, Owen MR, Postma JA, *et al.* (2022). Simulating crop root
+  systems using OpenSimRoot. *Methods in Molecular Biology* 2395:293–323.
+  [doi:10.1007/978-1-0716-1816-5_15](https://doi.org/10.1007/978-1-0716-1816-5_15)
+- OpenSimRoot documentation: <https://rootmodels.gitlab.io/>
